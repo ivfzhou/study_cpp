@@ -1,0 +1,43 @@
+#必填，待签名文件路径，可以是文件夹，文件名中可以使用通配符*
+ipa_path: ./unsigned/example.ipa
+#必填，签名结果文件路径
+dest_dir: .
+#选填，签名结果文件名，如果不填，则取待签名文件名
+dest_ipa: ./signed/example.ipa
+#选填，但是与destIpa必须二选一，签名结果文件名后缀，示例输出文件为example1_signed.ipa
+ipa_suffix: _signed
+#必填，证书ID，来自keystore证书管理页面，此处为企业证书
+cert_path: b40d1ff99705bbda60685884b69276265a9fa179
+#必填，描述文件ID，来自keystore证书管理页面
+provision_path: 4e58c78d-a6d7-4bf6-8afd-b2a56a21b6f8
+#以下参数选填，可以自行添加或删除
+#选填，强制签名，同codesign的--force
+force: true
+#选填，更换bundleId
+bundle_id: com.tencent.raft
+#选填，更换bundle名
+bundle_name: raft
+#选填，更换bundle版本号
+bundle_version: 1
+#选填，当待签名文件为文件夹的时候，可以设为true来跳过打包步骤
+skip_archive: false
+#选填，UL域名，下面为示例，多个域名使用分号分隔
+ul_domains:
+  - www.qq.com;www.baidu.com
+#选填，钥匙串访问组（keychain-access-group），此为全局配置，如有米大师联调需求，需要配置注入样例中所有的keychain值,如下，使用分号分隔
+keychain_access_group:
+  - HKB8WPFBR9.*
+  - HKB8WPFBR9.com.tencent.wsj.keystoregroup
+  - HKB8WPFBR9.com.stove.globaldata
+  - HKB8WPFBR9.com.centauri.wsj.keystoregroup
+#选填，苹果安全应用组（com.apple.security.application.groups），即为证书添加的appgoup值，若存在多个用分号分隔
+security_group:
+  - group.com.tencent.safe
+  - group.com.tencent.safe2
+#选填，替换所有info.plist的对应配置
+info:
+  WKCompanionAppBundleIdentifier: com.tencent.keystore.dailybuild
+  NSExtension.NSExtensionAttributes.WKAppBundleIdentifier: com.tencent.keystore.dailybuild.watchapp
+#选填，appx包对应的子描述文件，用于多签的情况
+appx_provision_ids:
+  WeChatSiriExtension: f884033d-d540-4f53-b513-8b385ab08294
