@@ -1,40 +1,56 @@
 cmake_minimum_required(VERSION 3.25)
 
-project(cpp)
+project(cpp LANGUAGES CXX VERSION 0.0.1)
+
+message(STATUS "CMAKE_SYSTEM_NAME is ${CMAKE_SYSTEM_NAME}")
+message(STATUS "CMAKE_C_COMPILER is ${CMAKE_C_COMPILER}")
+message(STATUS "CMAKE_CXX_COMPILER is ${CMAKE_CXX_COMPILER}")
+message(STATUS "CMAKE_CXX_COMPILER_VERSION is ${CMAKE_CXX_COMPILER_VERSION}")
+message(STATUS "PROJECT_NAME is ${PROJECT_NAME}")
+message(STATUS "CMAKE_SOURCE_DIR is ${CMAKE_SOURCE_DIR}")
+message(STATUS "CMAKE_BINARY_DIR is ${CMAKE_BINARY_DIR}")
+message(STATUS "CMAKE_SIZEOF_VOID_P is ${CMAKE_SIZEOF_VOID_P}")
+message(STATUS "MSVC is ${MSVC}")
+message(STATUS "CMAKE_CXX_FLAGS is ${CMAKE_CXX_FLAGS}")
+message(STATUS "CMAKE_CXX_FLAGS_DEBUG is ${CMAKE_CXX_FLAGS_DEBUG}")
+message(STATUS "CMAKE_CXX_FLAGS_RELEASE is ${CMAKE_CXX_FLAGS_RELEASE}")
+message(STATUS "CMAKE_C_FLAGS is ${CMAKE_C_FLAGS}")
+message(STATUS "CMAKE_C_FLAGS_DEBUG is ${CMAKE_C_FLAGS_DEBUG}")
+message(STATUS "CMAKE_C_FLAGS_RELEASE is ${CMAKE_C_FLAGS_RELEASE}")
+
+set(CMAKE_CXX_FLAGS_DEBUG "-finput-charset=UTF-8 -fexec-charset=UTF-8 --all-warnings -pedantic -Winline -O0 -Wall -g3 \
+    -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-function")
+message(STATUS "set CMAKE_CXX_FLAGS_DEBUG is ${CMAKE_CXX_FLAGS_DEBUG}")
+set(CMAKE_C_FLAGS_RELEASE "-finput-charset=UTF-8 -fexec-charset=UTF-8 -O3 -g0")
+message(STATUS "set CMAKE_C_FLAGS_RELEASE is ${CMAKE_C_FLAGS_RELEASE}")
 
 set(CMAKE_CXX_STANDARD 20)
 set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
-add_executable(cpp
-        main.cpp
-        assign_copy_operate.cpp
-        cast_var.cpp
-        character.cpp
-        enum.cpp
-        exception.cpp
-        FatherClass.cpp
-        friend_member_operator_overload.cpp
-        FriendClass.hpp
-        iterator.cpp
-        locate_new.cpp
-        macro_test.cpp
-        member_initializer_list.cpp
-        multiple_inheritance.cpp
-        namespace.cpp
-        private_extend.cpp
-        RTTI.cpp
-        smart_pointer.cpp
-        SonClass.cpp
-        source.cpp
-        String.cpp
-        task.cpp
-        template.cpp
-        template_static_member.cpp
-        TestClass10.cpp
-        TestClass20.cpp
-        TmplClass.hpp
-        valarray_usage.cpp
-        value_pass.cpp
-        vararg_test.cpp
-)
+string(TIMESTAMP DATETIME "%Y%m%d%H%M%S")
+if (NOT DEFINED PROJECT_VERSION)
+    set(PROJECT_VERSION "unknown")
+endif ()
+add_definitions(-DBUILD_DATETIME=$DATETIME)
+add_definitions(-DBUILD_VERSION=$PROJECT_VERSION)
+message(STATUS "macro BUILD_DATATIME is ${DATETIME}")
+message(STATUS "macro BUILD_VERSION is ${PROJECT_VERSION}")
+
+#file(GLOB SOURCES ${CMAKE_SOURCE_DIR}/*.cpp)
+#list(REMOVE_ITEM SOURCES ${CMAKE_SOURCE_DIR}/main.cpp)
+#set(LIBRARIES "")
+#foreach(v ${SOURCES})
+#    get_filename_component(FILE_NAME ${v} NAME_WE)
+#    add_library(${FILE_NAME} ${v})
+#    list(APPEND LIBRARIES ${FILE_NAME})
+#endforeach()
+include_directories(${CMAKE_SOURCE_DIR})
+#message(STATUS "LIBRARIES is ${LIBRARIES}")
+#
+#add_executable(main main.cpp)
+#target_link_libraries(main ${LIBRARIES})
+
+add_executable(main assignment_copy_operation.cpp assignment_copy_operation_test.cpp main.cpp cast_variable_test.cpp
+        character_test.cpp enumeration.cpp exception_test.cpp friend_member_operator_overload.cpp
+        friend_member_operator_overload_test.cpp FatherClass.cpp SonClass.cpp SonClass_test.cpp String.cpp String_test.cpp)

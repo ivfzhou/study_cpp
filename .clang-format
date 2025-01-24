@@ -1,0 +1,54 @@
+---
+Language: Cpp # 指定要使用的编程语言。可以是 C, C++, Java, JavaScript, ProtoBuf, ObjectiveC, CSharp, Go, YAML, Markdown, HTML, XML, JSON 等。
+BasedOnStyle: LLVM # 指定一个基础样式，作为当前格式化设置的起点。常见的基础样式包括 LLVM, Google, Chromium, Mozilla, WebKit, Microsoft, GNU, Custom 等。
+AccessModifierOffset: -2 # 设置访问修饰符（如 public, protected, private）的缩进偏移量。可以是正数或负数，负数表示向左缩进，正数表示向右缩进。
+AlignConsecutiveAssignments: false # 如果设置为 true，则在连续地赋值语句中对齐赋值运算符（=）。这使得多个赋值语句在视觉上更整齐。
+AlignConsecutiveDeclarations: false # 如果设置为 true，则在连续的变量声明中对齐类型和变量名。这使得多个变量声明在视觉上更整齐。
+AlignOperands: false # 如果设置为 true，则在多行表达式中对齐操作数。这使得操作数在视觉上更整齐。
+AlignTrailingComments: false # 如果设置为 true，则在行尾注释中对齐注释文本。这使得注释在视觉上更整齐。
+AlwaysBreakTemplateDeclarations: Yes # 如果设置为 true，则在模板声明时总是换行。这对于长模板参数列表特别有用，可以提高可读性。
+BraceWrapping:  # 用于控制大括号的换行行为。它是一个字典，允许你为不同的上下文设置换行规则。
+  AfterCaseLabel: false
+  AfterClass: false # 在类定义后换行。
+  AfterControlStatement: false # 在控制语句（如 if, for, while）后换行。
+  AfterEnum: false
+  AfterFunction: false # 在函数定义后换行。
+  AfterNamespace: false
+  AfterStruct: false
+  AfterUnion: false
+  AfterExternBlock: false
+  BeforeCatch: false # 在 catch 块之前换行。
+  BeforeElse: true # 在 else 块之前换行。
+  BeforeLambdaBody: false # 在 lambda 函数体之前换行。
+  BeforeWhile: true
+  SplitEmptyFunction: false
+  SplitEmptyRecord: false
+  SplitEmptyNamespace: false
+BreakBeforeBraces: Attach # 控制大括号的换行位置。Attach: 大括号与前面的代码在同一行。
+BreakConstructorInitializers: AfterColon # 如果设置为 true，则在构造函数的初始化列表中换行。这对于长地初始化列表特别有用。
+BreakConstructorInitializersBeforeComma: false # 如果设置为 true，则在构造函数的初始化列表中，换行发生在逗号之前，而不是之后。这可以使得每个初始化项在新行上。
+ColumnLimit: 120 # 设置每行的最大字符数限制。超过此限制的行将被换行。设置为 0 表示不限制行宽。
+CommentPragmas: false # 如果设置为 true，则在处理注释时会考虑 #pragma 指令。通常用于控制格式化行为的注释。
+ConstructorInitializerAllOnOneLineOrOnePerLine: false # 控制构造函数初始化列表的格式。如果设置为 true，则所有初始化项将放在一行；如果设置为 false，则每个初始化项将放在单独的一行。
+IncludeCategories:  # 用于定义包含文件的分类和排序规则。可以指定不同类别的包含文件的排序方式，例如系统头文件、项目头文件等。每个类别可以指定一个正则表达式来匹配文件名。
+  - Regex: '^<.*'
+    Priority: 1
+  - Regex: '^".*'
+    Priority: 2
+  - Regex: '.*'
+    Priority: 3
+IncludeIsMainRegex: '([-_](test|unittest))?$' # 用于指定一个正则表达式，以识别主文件（即程序的入口点）。这通常用于在格式化时处理 #include 语句的顺序。
+IndentWidth: 4 # 设置缩进的宽度，通常以空格数表示。这个值决定了代码中每个缩进级别的空格数。
+InsertNewlineAtEOF: true # 如果设置为 true，则在文件末尾插入一个新行。这是许多编码标准的要求，以确保文件以新行结束。
+MacroBlockBegin: '' # 用于定义宏块的开始标记。可以自定义宏块的开始格式，以便在格式化时识别。
+MacroBlockEnd: '' # 用于定义宏块的结束标记。可以自定义宏块的结束格式，以便在格式化时识别。
+MaxEmptyLinesToKeep: 2 # 设置在代码中允许保留的最大空行数。超过此数量的空行将被删除。这有助于保持代码的整洁性。
+NamespaceIndentation: All # 控制命名空间的缩进方式。
+PointerAlignment: Left # 控制指针符号（*）的对齐方式。
+SpaceInEmptyParentheses: false # 如果设置为 true，则在空的圆括号中插入空格。
+SpacesInAngles: false # 如果设置为 true，则在尖括号（< 和 >）中插入空格。
+SpacesInConditionalStatement: false # 如果设置为 true，则在条件语句（如 if, for, while）的括号内插入空格。
+SpacesInCStyleCastParentheses: false # 如果设置为 true，则在 C 风格的类型转换的括号内插入空格。
+SpacesInParentheses: false # 如果设置为 true，则在所有括号内插入空格。
+TabWidth: 4 # 设置制表符的宽度，通常以空格数表示。这个值决定了在使用制表符时每个制表符的宽度。
+...

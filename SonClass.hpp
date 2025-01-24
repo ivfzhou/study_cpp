@@ -1,33 +1,50 @@
-#ifndef SON_CLASS
-#define SON_CLASS
+#ifndef GITEE_COM_IVFZHOU_CPP_SON_CLASS
+#define GITEE_COM_IVFZHOU_CPP_SON_CLASS
 
 #include <string>
 
 #include "FatherClass.hpp"
 #include "String.hpp"
 
-// 类继承，多个逗号分割，
-// public继承父类公有和保护成员
-// protected继承父类公有和保护成员且变成保护
-// private继承父类公有和保护成员且变成私有，默认
-// virtual虚基类，解决多继承二义性。
-class SonClass : virtual public FatherClass {
-  public:
-    int publicField = 0;
+namespace gitee::com::ivfzhou::cpp {
+    // 类继承，多个逗号分割，
+    // public 继承父类公有和保护成员。
+    // protected 继承父类公有和保护成员且变成保护。
+    // private 继承父类公有和保护成员且变成私有，默认。
+    // virtual 虚基类，解决多继承二义性。
+    class SonClass : virtual public FatherClass {
+    public:
+        int publicField = 0;
 
-    String name;
+        String name;
 
-    SonClass(int field = 0, const std::string &name = "");
+        explicit SonClass(int field = 0, const std::string& name = "");
 
-    /* virtual父类方法是虚的，子类自动为虚 */ void virtualMethod();
+        // 父类方法是虚的，子类自动为虚。
+        void virtualMethod() override;
 
-    void method() const;
+        void constNonVirtualMethod() const;
 
-    virtual void pureVirtualMethod();
+        void pureVirtualMethod() override;
 
-    ~SonClass();
+        void staticMethod();
 
-    void staticMethod();
-};
+        ~SonClass() override;
+    };
+
+    class GrandsonClass : public SonClass {
+        void virtualMethod() override;
+
+    public:
+        virtual void otherMethod();
+
+        ~GrandsonClass() override;
+    };
+
+    class GreatGrandsonClass final : public GrandsonClass {
+        // 根据方法名覆盖。
+        void otherMethod() override;
+    };
+}
 
 #endif
