@@ -21,6 +21,7 @@ namespace gitee::com::ivfzhou::cpp {
         explicit SonClass(int field = 0, const std::string& name = "");
 
         // 父类方法是虚的，子类自动为虚。
+        // 需要是指针或者引用才能动态联编。
         void virtualMethod() override;
 
         void constNonVirtualMethod() const;

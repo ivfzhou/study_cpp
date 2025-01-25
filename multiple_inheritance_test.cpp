@@ -1,13 +1,13 @@
 #include <iostream>
 
-namespace multiple_inheritance {
+namespace gitee::com::ivfzhou::cpp::multiple_inheritance {
     class TestClass {
-      public:
+    public:
         TestClass() {
             std::cout << "TestClass" << std::endl;
         }
 
-        TestClass(const TestClass &tc) {
+        TestClass(const TestClass& tc) {
             std::cout << "TestClass copy" << std::endl;
         }
 
@@ -17,28 +17,28 @@ namespace multiple_inheritance {
     };
 
     class TestClass0 : public virtual TestClass {
-      public:
+    public:
         TestClass0() {
             std::cout << "TestClass0" << std::endl;
         }
 
-        TestClass0(TestClass &tc) : TestClass(tc) {
+        TestClass0(TestClass& tc) : TestClass(tc) {
             std::cout << "TestClass0 constructor" << std::endl;
         }
 
-      private:
+    private:
         void overwrite() {
             std::cout << "TestClass overwrite" << std::endl;
         }
     };
 
     class TestClass1 : public virtual TestClass {
-      public:
+    public:
         TestClass1() {
             std::cout << "TestClass1" << std::endl;
         }
 
-        TestClass1(TestClass &tc) : TestClass(tc) {
+        TestClass1(TestClass& tc) : TestClass(tc) {
             std::cout << "TestClass1 constructor" << std::endl;
         }
 
@@ -48,12 +48,12 @@ namespace multiple_inheritance {
     };
 
     class TestClass2 : public TestClass {
-      public:
+    public:
         TestClass2() {
             std::cout << "TestClass2" << std::endl;
         }
 
-        TestClass2(TestClass &tc) : TestClass(tc) {
+        TestClass2(TestClass& tc) : TestClass(tc) {
             std::cout << "TestClass2 copy" << std::endl;
         }
 
@@ -63,40 +63,45 @@ namespace multiple_inheritance {
     };
 
     class TestClass3 : public TestClass0, public TestClass1, public TestClass2 {
-      public:
-        TestClass3() = default; // 虚基类从这里调用构造
+    public:
+        TestClass3() = default; // 虚基类从这里调用构造。
 
-        TestClass3(TestClass &tc) : TestClass0(tc), TestClass1(tc) {}
+        TestClass3(TestClass& tc) : TestClass0(tc), TestClass1(tc) {}
     };
-
-    void test() {
-        TestClass3 tc;
-        // TestClass &tc0 = tc; // ambiguous
-        // tc.overwrite(); // ambiguous，与访问修饰符无关
-    }
 }
 
-namespace multiple_inheritance0 {
+void TestMultipleInheritance() {
+    using namespace gitee::com::ivfzhou::cpp::multiple_inheritance;
+    TestClass3 tc;
+    const TestClass& tc0 = static_cast<TestClass0>(tc);
+    // TestClass &tc0 = tc; // ambiguous
+    // tc.overwrite(); // ambiguous，与访问修饰符无关。
+}
+
+namespace gitee::com::ivfzhou::cpp::multiple_inheritance0 {
     class Worker {
         int a;
-      public :
+
+    public :
         Worker(int a);
     };
 
     class Singer : virtual public Worker {
         int b;
-      public:
+
+    public:
         Singer(int b, int a);
     };
 
     class Waiter : virtual public Worker {
         int c;
-      public:
+
+    public:
         Waiter(int c, int a);
     };
 
     class SingingWaiter : public Singer, public Waiter {
-      public:
+    public:
         SingingWaiter(int c, int b, int a);
     };
 

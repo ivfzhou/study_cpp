@@ -1,7 +1,7 @@
 #include <iostream>
 #include <chrono>
 
-namespace vararg_test {
+namespace gitee::com::ivfzhou::cpp::variable_argument {
     static void println() {
         std::cout << std::endl;
     }
@@ -14,27 +14,32 @@ namespace vararg_test {
         return sb.str();
     }
 
-    template<typename T, typename... Args> void println(T t, Args... args) {
+    template <typename T, typename... Args>
+    void println(T t, Args... args) {
         std::cout << t << " ";
         println(args...);
     }
 
-    template<typename... Args> void log(const std::string& level, Args... args) {
+    template <typename... Args>
+    void log(const std::string& level, Args... args) {
         std::cout << now() << " " << level << " ";
         println(args...);
     }
 
-    std::string getCallInfo(const char* file, int line) {
+    std::string getCaller(const char* file, int line) {
         std::ostringstream oss;
         oss << file << ":" << line;
         return oss.str();
     }
 
-#define LOG(level, ...) \
-    auto callInfo = getCallInfo(__FILE__, __LINE__); \
-    log(level, callInfo, __VA_ARGS__)
+    #define LOG(level, ...) \
+        auto callInfo = getCaller(__FILE__, __LINE__); \
+        log(level, callInfo, __VA_ARGS__)
+}
 
-    void test() {
-        LOG("INFO", "Hello World!");
-    }
+void TestVariableArgument() {
+    using namespace gitee::com::ivfzhou::cpp::variable_argument;
+    LOG("INFO", "Hello World!", 1, 1.1);
+
+    println(1, "Hello World!", 1, 1.1);
 }

@@ -1,4 +1,5 @@
 namespace gitee::com::ivfzhou::enumeration {
+    // 枚举定义，struct 可换 class。
     enum class NumericEnum {
         One, Two
     }; // 类作用域范围的枚举。

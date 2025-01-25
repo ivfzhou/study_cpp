@@ -1,18 +1,20 @@
-#ifndef FRIEND_CLASS
-#define FRIEND_CLASS
+#ifndef GITEE_COM_IVFZHOU_CPP_FRIEND_CLASS
+#define GITEE_COM_IVFZHOU_CPP_FRIEND_CLASS
 
-#include "TmplClass.hpp"
+#include "TemplateClass.hpp"
 
-template<typename T, typename E> class FriendClass {
-  private:
-    TmplClass<T, E> c;
+namespace gitee::com::ivfzhou::cpp {
+    template <typename T, typename E>
+    class FriendClass {
+        TemplateClass<T, E> c;
 
-    int field;
+        int field = 0;
 
-  public:
-    void friendClassMethod();
-};
+    public:
+        void friendClassMethod();
+    };
+}
 
-#include "FriendClass.cpp"
+#include "FriendClass.tpp"
 
 #endif

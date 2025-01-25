@@ -6,6 +6,9 @@ AlignConsecutiveAssignments: false # 如果设置为 true，则在连续地赋�
 AlignConsecutiveDeclarations: false # 如果设置为 true，则在连续的变量声明中对齐类型和变量名。这使得多个变量声明在视觉上更整齐。
 AlignOperands: false # 如果设置为 true，则在多行表达式中对齐操作数。这使得操作数在视觉上更整齐。
 AlignTrailingComments: false # 如果设置为 true，则在行尾注释中对齐注释文本。这使得注释在视觉上更整齐。
+AllowShortCaseLabelsOnASingleLine: true
+AllowShortIfStatementsOnASingleLine: true
+AllowShortLoopsOnASingleLine: true
 AlwaysBreakTemplateDeclarations: Yes # 如果设置为 true，则在模板声明时总是换行。这对于长模板参数列表特别有用，可以提高可读性。
 BraceWrapping:  # 用于控制大括号的换行行为。它是一个字典，允许你为不同的上下文设置换行规则。
   AfterCaseLabel: false
@@ -18,18 +21,18 @@ BraceWrapping:  # 用于控制大括号的换行行为。它是一个字典，�
   AfterUnion: false
   AfterExternBlock: false
   BeforeCatch: false # 在 catch 块之前换行。
-  BeforeElse: true # 在 else 块之前换行。
+  BeforeElse: false # 在 else 块之前换行。
   BeforeLambdaBody: false # 在 lambda 函数体之前换行。
-  BeforeWhile: true
+  BeforeWhile: false
   SplitEmptyFunction: false
   SplitEmptyRecord: false
   SplitEmptyNamespace: false
-BreakBeforeBraces: Attach # 控制大括号的换行位置。Attach: 大括号与前面的代码在同一行。
+BreakBeforeBraces: Custom # 控制大括号的换行位置。Attach: 大括号与前面的代码在同一行。
 BreakConstructorInitializers: AfterColon # 如果设置为 true，则在构造函数的初始化列表中换行。这对于长地初始化列表特别有用。
 BreakConstructorInitializersBeforeComma: false # 如果设置为 true，则在构造函数的初始化列表中，换行发生在逗号之前，而不是之后。这可以使得每个初始化项在新行上。
 ColumnLimit: 120 # 设置每行的最大字符数限制。超过此限制的行将被换行。设置为 0 表示不限制行宽。
-CommentPragmas: false # 如果设置为 true，则在处理注释时会考虑 #pragma 指令。通常用于控制格式化行为的注释。
 ConstructorInitializerAllOnOneLineOrOnePerLine: false # 控制构造函数初始化列表的格式。如果设置为 true，则所有初始化项将放在一行；如果设置为 false，则每个初始化项将放在单独的一行。
+CommentPragmas: false # 如果设置为 true，则在处理注释时会考虑 #pragma 指令。通常用于控制格式化行为的注释。
 IncludeCategories:  # 用于定义包含文件的分类和排序规则。可以指定不同类别的包含文件的排序方式，例如系统头文件、项目头文件等。每个类别可以指定一个正则表达式来匹配文件名。
   - Regex: '^<.*'
     Priority: 1
@@ -37,7 +40,8 @@ IncludeCategories:  # 用于定义包含文件的分类和排序规则。可以�
     Priority: 2
   - Regex: '.*'
     Priority: 3
-IncludeIsMainRegex: '([-_](test|unittest))?$' # 用于指定一个正则表达式，以识别主文件（即程序的入口点）。这通常用于在格式化时处理 #include 语句的顺序。
+IncludeIsMainRegex: '([-_](test|unittest))?$'
+IndentPPDirectives: BeforeHash
 IndentWidth: 4 # 设置缩进的宽度，通常以空格数表示。这个值决定了代码中每个缩进级别的空格数。
 InsertNewlineAtEOF: true # 如果设置为 true，则在文件末尾插入一个新行。这是许多编码标准的要求，以确保文件以新行结束。
 MacroBlockBegin: '' # 用于定义宏块的开始标记。可以自定义宏块的开始格式，以便在格式化时识别。
