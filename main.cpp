@@ -591,8 +591,14 @@ static void testReference() {
     std::cout << x << std::endl;
 }
 
-int main(const int argv, const char* argc[]) {
+void Version() {
+    std::cout << "Version: " << BUILD_VERSION << std::endl;
+    std::cout << "CommitID: " << GIT_COMMIT_ID << std::endl;
+    std::cout << "BuiltTime: " << BUILD_DATETIME << std::endl;
+}
 
+int main(const int argv, const char* argc[]) {
+    Version();
     std::cout << "OK 完成" << std::endl;
     return 0;
 }

@@ -32,10 +32,17 @@ string(TIMESTAMP DATETIME "%Y%m%d%H%M%S")
 if (NOT DEFINED PROJECT_VERSION)
     set(PROJECT_VERSION "unknown")
 endif ()
-add_definitions(-DBUILD_DATETIME=$DATETIME)
-add_definitions(-DBUILD_VERSION=$PROJECT_VERSION)
+execute_process(
+        COMMAND git rev-parse --short HEAD
+        WORKING_DIRECTORY ${CMAKE_SOURCE_DIR}
+        OUTPUT_VARIABLE GIT_COMMIT_ID
+        OUTPUT_STRIP_TRAILING_WHITESPACE
+)
+add_definitions(-DBUILD_DATETIME="${DATETIME}")
+add_definitions(-DBUILD_VERSION="${PROJECT_VERSION}")
+add_definitions(-DGIT_COMMIT_ID="${GIT_COMMIT_ID}")
 message(STATUS "macro BUILD_DATATIME is ${DATETIME}")
-message(STATUS "macro BUILD_VERSION is ${PROJECT_VERSION}")
+message(STATUS "macro GIT_COMMIT_ID is ${GIT_COMMIT_ID}")
 
 include_directories(${CMAKE_SOURCE_DIR})
 
