@@ -168,7 +168,7 @@ static void testInitialization() {
     std::cout << "arr0[0] is " << arr0[0] << std::endl;
 }
 
-// cout 提供的控制符
+// cout 提供的控制符。
 static void testCoutControl() {
     int n = 32;
     std::cout << std::hex << n << std::endl; // 0x20
@@ -205,7 +205,7 @@ static void testConstantArrayLength() {
     std::cout << arr[9] << std::endl;
 }
 
-// 数据类型字节数
+// 数据类型字节数。
 static void testTypeSize() {
     std::cout << sizeof(char) << std::endl; // 1
     std::cout << sizeof(unsigned char) << std::endl; // 1
@@ -227,7 +227,7 @@ static void testTypeSize() {
     std::cout << sizeof(TemplateClass<int, int>) << std::endl; // 32
 }
 
-// 强制类型转换的方式
+// 强制类型转换的方式。
 static void testForceTypeCast() {
     int x = (int)3.2; // C风格。
     int y = int(3.2); // C++风格。
@@ -311,7 +311,7 @@ struct S {
 struct S s = {.field = 1, .field0 = 2}; // 可以省去 struct 关键字。不可缩窄转换。
 S s1{}; // 初始化为零值。
 
-// 动态分配数组
+// 动态分配数组。
 static void testDynamicArray() {
     int* arr = new int[10];
     arr[1] = 999;
@@ -460,8 +460,7 @@ static void testClass() {
     class InnerClass {
     public:
         // static int x; 不能定义静态成员。
-        void method() {
-        };
+        void method() {};
     };
     InnerClass ic;
     ic.method();
@@ -508,13 +507,13 @@ static void testDecltype() {
 }
 
 template <typename F, typename... Args>
-void testVariableTemplateFunction(F&& f, Args&&... args) {
+static void variableTemplateFunction(F&& f, Args&&... args) {
     f(std::forward<Args...>(args...));
 }
 
 static void testStdForward() {
     int x = 1;
-    testVariableTemplateFunction([&](int y) { std::cout << ++y << std::endl; }, x);
+    variableTemplateFunction([&](int y) { std::cout << ++y << std::endl; }, x);
     std::cout << x << std::endl;
 }
 
@@ -578,8 +577,22 @@ static void testRightValueToLeft() {
     std::cout << m << std::endl;
 }
 
+static int& returnRightReference(int&& x) {
+    x++;
+    return static_cast<int&>(x);
+}
+
+static void testReference() {
+    int x = 1;
+    int& y = returnRightReference(static_cast<int&&>(x)); // 无论返回值是左值引用还是右值引用，接收值也要是是对应的引用类型。否则将复制内存。
+    std::cout << x << std::endl;
+    std::cout << y << std::endl;
+    y++;
+    std::cout << x << std::endl;
+}
+
 int main(const int argv, const char* argc[]) {
-    TestMovementClass();
+
     std::cout << "OK 完成" << std::endl;
     return 0;
 }

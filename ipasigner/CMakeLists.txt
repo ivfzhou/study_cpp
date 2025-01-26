@@ -24,10 +24,10 @@ FetchContent_Declare(
 #FetchContent_GetProperties(yaml-cpp)
 FetchContent_MakeAvailable(yaml-cpp)
 
-if(NOT yaml-cpp_POPULATED)
+if (NOT yaml-cpp_POPULATED)
     message(STATUS "Fetching yaml-cpp...")
     FetchContent_Populate(yaml-cpp)
     add_subdirectory(${yaml-cpp_SOURCE_DIR} ${yaml-cpp_BINARY_DIR})
-endif()
+endif ()
 
 target_link_libraries(ipasigner yaml-cpp::yaml-cpp argparse)

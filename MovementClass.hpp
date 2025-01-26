@@ -10,7 +10,7 @@ namespace gitee::com::ivfzhou::cpp {
 
         explicit MovementClass(const char*);
 
-        // 移动复制构造方法，默认提供。
+        // 移动构造方法，默认提供。
         MovementClass(MovementClass&&) noexcept;
 
         // 移动赋值运算符，默认提供。

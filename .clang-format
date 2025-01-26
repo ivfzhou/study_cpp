@@ -10,7 +10,7 @@ AllowShortCaseLabelsOnASingleLine: true
 AllowShortIfStatementsOnASingleLine: true
 AllowShortLoopsOnASingleLine: true
 AlwaysBreakTemplateDeclarations: Yes # 如果设置为 true，则在模板声明时总是换行。这对于长模板参数列表特别有用，可以提高可读性。
-BraceWrapping:  # 用于控制大括号的换行行为。它是一个字典，允许你为不同的上下文设置换行规则。
+BraceWrapping: # 用于控制大括号的换行行为。它是一个字典，允许你为不同的上下文设置换行规则。
   AfterCaseLabel: false
   AfterClass: false # 在类定义后换行。
   AfterControlStatement: false # 在控制语句（如 if, for, while）后换行。
@@ -33,7 +33,7 @@ BreakConstructorInitializersBeforeComma: false # 如果设置为 true，则在�
 ColumnLimit: 120 # 设置每行的最大字符数限制。超过此限制的行将被换行。设置为 0 表示不限制行宽。
 ConstructorInitializerAllOnOneLineOrOnePerLine: false # 控制构造函数初始化列表的格式。如果设置为 true，则所有初始化项将放在一行；如果设置为 false，则每个初始化项将放在单独的一行。
 CommentPragmas: false # 如果设置为 true，则在处理注释时会考虑 #pragma 指令。通常用于控制格式化行为的注释。
-IncludeCategories:  # 用于定义包含文件的分类和排序规则。可以指定不同类别的包含文件的排序方式，例如系统头文件、项目头文件等。每个类别可以指定一个正则表达式来匹配文件名。
+IncludeCategories: # 用于定义包含文件的分类和排序规则。可以指定不同类别的包含文件的排序方式，例如系统头文件、项目头文件等。每个类别可以指定一个正则表达式来匹配文件名。
   - Regex: '^<.*'
     Priority: 1
   - Regex: '^".*'
