@@ -1,16 +1,16 @@
-#include <iostream>
-#include <fstream>
-#include <vector>
-#include <array>
-#include <ctime>
-#include <cstring>
-#include <iomanip>
 #include <MovementClass.hpp>
+#include <array>
+#include <cstring>
+#include <ctime>
+#include <fstream>
+#include <iomanip>
+#include <iostream>
+#include <vector>
 
-#include "TemplateClass.hpp"
 #include "FatherClass.hpp"
-#include "SonClass.hpp"
 #include "FriendClass.hpp"
+#include "SonClass.hpp"
+#include "TemplateClass.hpp"
 
 extern void TestAssignmentCopyOperation();
 
@@ -62,6 +62,8 @@ extern void TestTypename();
 
 extern void TestMovementClass();
 
+extern void TestHttp();
+
 static void testConstantPointerAssignment() {
     const int x = 1;
     // int* ptr = &x; // 取址常量变量不能赋值给非 const 指针。
@@ -77,9 +79,7 @@ static void testConstantPointerAssignment() {
 
 static void testLambdaUsage() {
     int y = 1;
-    auto fn = [&](int x) {
-        y = x;
-    };
+    auto fn = [&](int x) { y = x; };
     fn(1234);
     std::cout << y << std::endl;
 }
@@ -99,15 +99,13 @@ static void testIterator() {
 
 static void testLocateNew() {
     class TestClass {
-    public:
-        ~TestClass() {
-            std::cout << "~TestClass" << std::endl;
-        }
+      public:
+        ~TestClass() { std::cout << "~TestClass" << std::endl; }
     };
 
     char* buf = new char[1024];
-    auto tc = new(buf) TestClass;
-    auto tc0 = new(buf + sizeof(TestClass)) TestClass;
+    auto tc = new (buf) TestClass;
+    auto tc0 = new (buf + sizeof(TestClass)) TestClass;
     // delete tc; // error
     tc->~TestClass(); // 需要手动调用析构。
     tc0->~TestClass();
@@ -116,8 +114,8 @@ static void testLocateNew() {
 
 static void testMacro() {
     #define FN(name) \
-        std::string name = "abc"; \
-        std::cout << name << std::endl;
+    std::string name = "abc"; \
+    std::cout << name << std::endl;
 
     FN(variableName);
 
@@ -151,7 +149,7 @@ static void testInitialization() {
     std::cout << "x is " << z << std::endl;
 
     int arr[1][2] = {1, 2}; // 两个元素的数组，每个元素为 int[1]。
-    int (*ptr)[2](arr);
+    int(*ptr)[2](arr);
     std::cout << "ptr is " << ptr << std::endl;
 
     TemplateClass<int, int> c0 = {1}; // 调用构造函数。
@@ -384,9 +382,7 @@ static void testTemplateFunction(T t) {
 template void testTemplateFunction<int>(int);
 
 // 函数的参数默认值
-static void testDefaultVariableFunction(int x, int y = 1, int z = 2) {
-    std::cout << x << y << z << std::endl;
-}
+static void testDefaultVariableFunction(int x, int y = 1, int z = 2) { std::cout << x << y << z << std::endl; }
 
 static void testClassFieldPointer() {
     // 类的数据成员的指针。
@@ -416,9 +412,7 @@ const TemplateClass<int, int> carr[2] = {};
 static int fileVar;
 
 // 域运算符使用全局变量：
-static void testUseGlobalVar() {
-    printf("%d\n", ::fileVar);
-}
+static void testUseGlobalVar() { printf("%d\n", ::fileVar); }
 
 // c++11 空指针：
 int* p = nullptr;
@@ -458,7 +452,7 @@ static void testClass() {
 
     // 局部类。
     class InnerClass {
-    public:
+      public:
         // static int x; 不能定义静态成员。
         void method() {};
     };
@@ -487,9 +481,7 @@ static void testClass() {
 }
 
 // -> 表示返回值类型
-auto decltypeFunction() -> decltype(1) {
-    return 1;
-}
+auto decltypeFunction() -> decltype(1) { return 1; }
 
 static void testDecltype() {
     int z = 0;
@@ -584,7 +576,8 @@ static int& returnRightReference(int&& x) {
 
 static void testReference() {
     int x = 1;
-    int& y = returnRightReference(static_cast<int&&>(x)); // 无论返回值是左值引用还是右值引用，接收值也要是是对应的引用类型。否则将复制内存。
+    int& y = returnRightReference(
+        static_cast<int&&>(x)); // 无论返回值是左值引用还是右值引用，接收值也要是是对应的引用类型。否则将复制内存。
     std::cout << x << std::endl;
     std::cout << y << std::endl;
     y++;
@@ -598,7 +591,10 @@ void Version() {
 }
 
 int main(const int argv, const char* argc[]) {
-    Version();
+    std::setlocale(LC_ALL, "en_US.UTF-8");
+
+    TestHttp();
+
     std::cout << "OK 完成" << std::endl;
     return 0;
 }
