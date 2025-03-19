@@ -1,13 +1,15 @@
+set(ZLIB_DEPENDENCIES_PREFIX ${DEPENDENCIES_PREFIX}/zlib)
+
 find_path(
     ZLIB_INCLUDE_DIR
-    NAMES "zlib.h"
-    PATHS "${DEPENDENCIES_PREFIX}/include"
+    NAMES zlib.h
+    PATHS ${ZLIB_DEPENDENCIES_PREFIX}/include
     NO_DEFAULT_PATH
 )
 find_library(
     ZLIB_LIB
-    NAMES "libz.a"
-    PATHS "${DEPENDENCIES_PREFIX}/lib"
+    NAMES libz.a
+    PATHS ${ZLIB_DEPENDENCIES_PREFIX}/lib
     NO_DEFAULT_PATH
 )
 
@@ -15,17 +17,18 @@ if(ZLIB_INCLUDE_DIR AND ZLIB_LIB)
     message(STATUS "ZLIB_INCLUDE_DIR found: ${ZLIB_INCLUDE_DIR}")
     message(STATUS "ZLIB_LIB found: ${ZLIB_LIB}")
 else()
-    include(ExternalProject)
     ExternalProject_Add(
-        "libzlib"
-        PREFIX ${DEPENDENCIES_PREFIX}
-        GIT_REPOSITORY "https://github.com/madler/zlib.git"
-        GIT_TAG "v1.3.1"
-        CONFIGURE_COMMAND cd ${DEPENDENCIES_PREFIX}/src && mkdir -p libzlib-build
-        BUILD_COMMAND cd ${DEPENDENCIES_PREFIX}/src/libzlib-build && ${CMAKE_COMMAND} -DCMAKE_BUILD_TYPE=Release -DCMAKE_INSTALL_PREFIX=${DEPENDENCIES_PREFIX} -DZLIB_BUILD_EXAMPLES=OFF ../libzlib
-        INSTALL_COMMAND cd ${DEPENDENCIES_PREFIX}/src/libzlib-build && ${CMAKE_COMMAND} --build . --target install
+        zlib
+        PREFIX ${ZLIB_DEPENDENCIES_PREFIX}
+        GIT_REPOSITORY https://github.com/madler/zlib.git
+        GIT_TAG v1.3.1
+        CONFIGURE_COMMAND cd ${ZLIB_DEPENDENCIES_PREFIX}/src && mkdir -p zlib-build
+        BUILD_COMMAND cd ${ZLIB_DEPENDENCIES_PREFIX}/src/zlib-build && ${CMAKE_COMMAND} -DCMAKE_INSTALL_PREFIX=${ZLIB_DEPENDENCIES_PREFIX} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} ../zlib
+        INSTALL_COMMAND cd ${ZLIB_DEPENDENCIES_PREFIX}/src/zlib-build && ${CMAKE_COMMAND} --build . --target install
     )
-    set(ZLIB_LIB "${DEPENDENCIES_PREFIX}/lib/libz.a")
+    set(ZLIB_INCLUDE_DIR ${ZLIB_DEPENDENCIES_PREFIX}/include)
+    set(ZLIB_LIB ${ZLIB_DEPENDENCIES_PREFIX}/lib/libz.a)
 endif()
 
+include_directories(${ZLIB_INCLUDE_DIR})
 list(APPEND LIBRARIES ${ZLIB_LIB})

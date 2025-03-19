@@ -1,4 +1,3 @@
-#include <MovementClass.hpp>
 #include <array>
 #include <cstring>
 #include <ctime>
@@ -63,6 +62,8 @@ extern void TestTypename();
 extern void TestMovementClass();
 
 extern void TestHttp();
+
+extern void TestYaml();
 
 static void testConstantPointerAssignment() {
     const int x = 1;
@@ -526,7 +527,6 @@ static typename std::remove_reference<T>::type&& move(T&& x) {
     return static_cast<typename std::remove_reference<T>::type&&>(x);
 }
 
-
 // 函数右值引用的形参，可以接收右值、左值、右值引用和左值引用类型的实参。
 // 函数返回值类型为右值引用，可以用左值、右值引用和左值引用类型的实参。
 static void testCommonReference() {
@@ -593,7 +593,7 @@ void Version() {
 int main(const int argv, const char* argc[]) {
     std::setlocale(LC_ALL, "en_US.UTF-8");
 
-    TestHttp();
+    TestYaml();
 
     std::cout << "OK 完成" << std::endl;
     return 0;

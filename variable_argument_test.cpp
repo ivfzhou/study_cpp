@@ -1,6 +1,6 @@
 #include <iostream>
 #include <chrono>
-#include <iomanip>
+#include <format>
 
 namespace gitee::com::ivfzhou::cpp::variable_argument {
     static void println() {
@@ -8,21 +8,19 @@ namespace gitee::com::ivfzhou::cpp::variable_argument {
     }
 
     static std::string now() {
-        const auto t = std::chrono::system_clock::now();
-        const auto t0 = std::chrono::system_clock::to_time_t(t);
-        std::ostringstream sb;
-        sb << std::put_time(std::localtime(&t0), "%Y-%m-%d %H:%M:%S");
-        return sb.str();
+        const auto& t = std::chrono::system_clock::now();
+        std::chrono::zoned_time zt("Asia/Shanghai", t);
+        return format("{:%Y-%m-%d %H:%M:%S}", zt);
     }
 
     template <typename T, typename... Args>
-    void println(T t, Args... args) {
+    void println(const T& t, Args... args) {
         std::cout << t << " ";
         println(args...);
     }
 
     template <typename... Args>
-    void log(const std::string& level, Args... args) {
+    void log(const std::string& level, const Args&... args) {
         std::cout << now() << " " << level << " ";
         println(args...);
     }

@@ -1,30 +1,34 @@
+set(JWT_CPP_DEPENDENCIES_PREFIX ${DEPENDENCIES_PREFIX}/jwt-cpp)
+
 find_path(
-    JWT_INCLUDE_DIR
+    JWT_CPP_INCLUDE_DIR
     NAMES jwt
-    PATHS ${DEPENDENCIES_PREFIX}/include
+    PATHS ${JWT_CPP_DEPENDENCIES_PREFIX}/include
     NO_DEFAULT_PATH
 )
 find_library(
-    JWT_LIB
+    JWT_CPP_LIB
     NAMES libjwt.a
-    PATHS ${DEPENDENCIES_PREFIX}/lib
+    PATHS ${JWT_CPP_DEPENDENCIES_PREFIX}/lib
     NO_DEFAULT_PATH
 )
 
-if(JWT_LIB AND JWT_INCLUDE_DIR)
-    message(STATUS "JWT_INCLUDE_DIR found: ${JWT_INCLUDE_DIR}")
-    message(STATUS "JWT_LIB found: ${JWT_LIB}")
+if(JWT_CPP_LIB AND JWT_CPP_INCLUDE_DIR)
+    message(STATUS "JWT_CPP_INCLUDE_DIR found: ${JWT_CPP_INCLUDE_DIR}")
+    message(STATUS "JWT_CPP_LIB found: ${JWT_CPP_LIB}")
 else()
-    include(ExternalProject)
-    ExternalProject_Add(libjwt
-        PREFIX ${DEPENDENCIES_PREFIX}
-        GIT_REPOSITORY "https://github.com/pokowaka/jwt-cpp.git"
-        GIT_TAG "v1.1"
-        CONFIGURE_COMMAND cd ${DEPENDENCIES_PREFIX}/src/libjwt && mkdir build && cd build || true
-        BUILD_COMMAND cd ${DEPENDENCIES_PREFIX}/src/libjwt && cd build && cmake -DCMAKE_INSTALL_PREFIX=${DEPENDENCIES_PREFIX} -DOPENSSL_INCLUDE_DIRS=${DEPENDENCIES_PREFIX}/include -DOPENSSL_LIBRARY_DIRS=${DEPENDENCIES_PREFIX}/${LIB_DIR} -DOPENSSL_LIBRARIES=${DEPENDENCIES_PREFIX}/${LIB_DIR}/libcrypto.a -DENABLE_TESTS=OFF -DCMAKE_BUILD_TYPE=Release ..
-        INSTALL_COMMAND cd ${DEPENDENCIES_PREFIX}/src/libjwt && cd build make -j && make install
+    ExternalProject_Add(
+        jwt-cpp
+        PREFIX ${JWT_CPP_DEPENDENCIES_PREFIX}
+        GIT_REPOSITORY https://github.com/pokowaka/jwt-cpp.git
+        GIT_TAG v1.1
+        CONFIGURE_COMMAND cd ${JWT_CPP_DEPENDENCIES_PREFIX}/src && mkdir -p jwt-cpp-build
+        BUILD_COMMAND cd ${JWT_CPP_DEPENDENCIES_PREFIX}/src/jwt-cpp-build && ${CMAKE_COMMAND} -DCMAKE_INSTALL_PREFIX=${JWT_CPP_DEPENDENCIES_PREFIX} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DOPENSSL_INCLUDE_DIRS=${OPENSSL_INCLUDE_DIR} -DOPENSSL_LIBRARY_DIRS=${OPENSSL_LIB_DIR} -DOPENSSL_LIBRARIES=${CRYPTO_LIB} ../jwt-cpp
+        INSTALL_COMMAND cd ${JWT_CPP_DEPENDENCIES_PREFIX}/src/jwt-cpp-build && ${CMAKE_COMMAND} --build . --target install
     )
-    set(JWT_LIB ${DEPENDENCIES_PREFIX}/lib/libjwt.a)
+    set(JWT_CPP_LIB ${JWT_CPP_DEPENDENCIES_PREFIX}/lib/libjwt.a)
+    set(JWT_CPP_INCLUDE_DIR ${JWT_CPP_DEPENDENCIES_PREFIX}/include)
 endif()
 
-list(APPEND LIBRARIES ${JWT_LIB})
+include_directories(${JWT_CPP_INCLUDE_DIR})
+list(APPEND LIBRARIES ${JWT_CPP_LIB})

@@ -1,7 +1,6 @@
 # 设置编译参数
 set(CMAKE_CXX_FLAGS_RELEASE "-finput-charset=UTF-8 -fexec-charset=UTF-8 -O3 -g0")
-set(CMAKE_CXX_FLAGS_DEBUG "-finput-charset=UTF-8 -fexec-charset=UTF-8 --all-warnings -pedantic -Winline -O0 -Wall -g3 \
-        -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-function")
+set(CMAKE_CXX_FLAGS_DEBUG "-finput-charset=UTF-8 -fexec-charset=UTF-8 --all-warnings -pedantic -Winline -O0 -Wall -g3 -Wno-unused-variable -Wno-unused-but-set-variable -Wno-unused-function")
 
 include(cmakes/linux/openssl.cmake)
 include(cmakes/linux/zlib.cmake)

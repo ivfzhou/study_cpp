@@ -35,6 +35,9 @@ execute_process(
     OUTPUT_VARIABLE GIT_COMMIT_ID
     OUTPUT_STRIP_TRAILING_WHITESPACE
 )
+if(NOT DEFINED GIT_COMMIT_ID OR GIT_COMMIT_ID STREQUAL "")
+    set(GIT_COMMIT_ID "unknown")
+endif()
 add_definitions(-DBUILD_DATETIME="${DATETIME}")
 add_definitions(-DBUILD_VERSION="${PROJECT_VERSION}")
 add_definitions(-DGIT_COMMIT_ID="${GIT_COMMIT_ID}")
@@ -42,15 +45,25 @@ message(STATUS "macro BUILD_VERSION is ${PROJECT_VERSION}")
 message(STATUS "macro BUILD_DATATIME is ${DATETIME}")
 message(STATUS "macro GIT_COMMIT_ID is ${GIT_COMMIT_ID}")
 
-# 搜集源码和头
+# 搜集源码和头文件
 file(GLOB SOURCES ${CMAKE_SOURCE_DIR}/*.cpp)
 include_directories(${CMAKE_SOURCE_DIR})
 
-# 依赖安装编译文件夹
-set(DEPENDENCIES_PREFIX "${CMAKE_SOURCE_DIR}/dependencies")
-include_directories("${DEPENDENCIES_PREFIX}/include")
+# 设置构建类型
+if(NOT DEFINED CMAKE_BUILD_TYPE)
+    set(CMAKE_BUILD_TYPE "Debug")
+elseif((NOT CMAKE_BUILD_TYPE STREQUAL "Debug") AND (NOT CMAKE_BUILD_TYPE STREQUAL "Release"))
+    set(CMAKE_BUILD_TYPE "Debug")
+endif()
+message(STATUS "actual CMAKE_BUILD_TYPE is ${CMAKE_BUILD_TYPE}")
+
+# 创建依赖安装编译文件夹
+math(EXPR BIT_SIZE "${CMAKE_SIZEOF_VOID_P} * 8")
+set(DEPENDENCIES_PREFIX ${CMAKE_SOURCE_DIR}/dependencies/${CMAKE_BUILD_TYPE}/${BIT_SIZE})
+file(MAKE_DIRECTORY ${DEPENDENCIES_PREFIX})
 
 # 包含其它脚本
+include(ExternalProject)
 if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
     include(cmakes/windows.cmake)
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
@@ -67,13 +80,13 @@ set(CMAKE_CXX_STANDARD_REQUIRED ON)
 set(CMAKE_CXX_EXTENSIONS OFF)
 
 # 编译对象文件
-add_executable(cpp)
 message(STATUS "SOURCES is ${SOURCES}")
-foreach(v ${SOURCES})
-    get_filename_component(FILE_NAME ${v} NAME_WE)
-    add_library(${FILE_NAME} OBJECT ${v})
-    target_sources(cpp PRIVATE $<TARGET_OBJECTS:${FILE_NAME}>)
-endforeach()
+add_executable(cpp ${SOURCES})
+#foreach(v ${SOURCES})
+#    get_filename_component(FILE_NAME ${v} NAME_WE)
+#    add_library(${FILE_NAME} OBJECT ${v})
+#    target_sources(cpp PRIVATE $<TARGET_OBJECTS:${FILE_NAME}>)
+#endforeach()
 
 # 链接库
 message(STATUS "LIBRARIES is ${LIBRARIES}")
