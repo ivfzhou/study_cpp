@@ -1,6 +1,6 @@
 namespace gitee::com::ivfzhou::cpp::upcast_test {
     class TestClass {
-    public:
+      public:
         // 析构函数定义成抽象的
         virtual ~TestClass() = 0;
     };

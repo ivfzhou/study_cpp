@@ -21,11 +21,14 @@ else()
     ExternalProject_Add(
         libzip
         PREFIX ${LIBZIP_DEPENDENCIES_PREFIX}
-        GIT_REPOSITORY https://github.com/nih-at/libzip.git
-        GIT_TAG v1.11.3
-        CONFIGURE_COMMAND cd ${LIBZIP_DEPENDENCIES_PREFIX}/src && if not exist libzip-build (md libzip-build)
-        BUILD_COMMAND cd ${LIBZIP_DEPENDENCIES_PREFIX}/src/libzip-build && ${CMAKE_COMMAND} -DCMAKE_INSTALL_PREFIX=${LIBZIP_DEPENDENCIES_PREFIX} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DZLIB_LIBRARY=${ZLIB_LIB} -DZLIB_INCLUDE_DIR=${ZLIB_INCLUDE_DIR} ../libzip
-        INSTALL_COMMAND cd ${LIBZIP_DEPENDENCIES_PREFIX}/src/libzip-build && ${CMAKE_COMMAND} --build . --target install --config ${CMAKE_BUILD_TYPE}
+        URL https://github.com/nih-at/libzip/archive/refs/tags/v1.11.3.zip
+        CONFIGURE_COMMAND cd ${LIBZIP_DEPENDENCIES_PREFIX}/src &&
+        rd /s /q libzip-build && md libzip-build
+        BUILD_COMMAND cd ${LIBZIP_DEPENDENCIES_PREFIX}/src/libzip-build &&
+        ${CMAKE_COMMAND} -DCMAKE_INSTALL_PREFIX=${LIBZIP_DEPENDENCIES_PREFIX} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+        -DBUILD_SHARED_LIBS=OFF -DZLIB_LIBRARY=${ZLIB_LIB} -DZLIB_INCLUDE_DIR=${ZLIB_INCLUDE_DIR} ../libzip
+        INSTALL_COMMAND cd ${LIBZIP_DEPENDENCIES_PREFIX}/src/libzip-build &&
+        ${CMAKE_COMMAND} --build . --target install --config ${CMAKE_BUILD_TYPE}
     )
     set(LIBZIP_LIB ${LIBZIP_DEPENDENCIES_PREFIX}/lib/zip.lib)
     set(LIBZIP_INCLUDE_DIR ${LIBZIP_DEPENDENCIES_PREFIX}/include)

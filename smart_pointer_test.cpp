@@ -1,5 +1,5 @@
-#include <memory>
 #include <iostream>
+#include <memory>
 
 namespace gitee::com::ivfzhou::cpp::smart_pointer {
     std::unique_ptr<int> getUp() {
@@ -8,15 +8,15 @@ namespace gitee::com::ivfzhou::cpp::smart_pointer {
         return ptr;
     }
 
-    void revUp(std::unique_ptr<int>& ptr) {
-        std::cout << *ptr << std::endl;
-    }
+    void revUp(std::unique_ptr<int>& ptr) { std::cout << *ptr << std::endl; }
 }
 
 void TestSmartPointer() {
     using namespace gitee::com::ivfzhou::cpp::smart_pointer;
-    std::unique_ptr<int> ptr1(new int); // unique_ptr 被销毁时，它所指向的对象也会被自动销毁。你不能复制或者赋值 unique_ptr，但是你可以移动它。
-    std::shared_ptr<int> ptr2(new int); // 多个 shared_ptr 可以指向同一个对象，对象会在最后一个指向它的shared_ptr被销毁时自动销毁。
+    std::unique_ptr<int> ptr1(new int); // unique_ptr 被销毁时，它所指向的对象也会被自动销毁。你不能复制或者赋值
+                                        // unique_ptr，但是你可以移动它。
+    std::shared_ptr<int> ptr2(
+        new int); // 多个 shared_ptr 可以指向同一个对象，对象会在最后一个指向它的shared_ptr被销毁时自动销毁。
     auto ptr3 = ptr2;
     *ptr3 = 10;
     std::cout << *ptr2 << std::endl; // 10

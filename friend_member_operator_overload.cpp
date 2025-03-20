@@ -17,9 +17,7 @@ namespace gitee::com::ivfzhou::cpp::friend_member_operator_overload {
 
     TestClass::TestClass() = default;
 
-    TestClass::TestClass(int x) : x(x) {
-        std::cout << "TestClass x" << std::endl;
-    }
+    TestClass::TestClass(int x) : x(x) { std::cout << "TestClass x" << std::endl; }
 
     TestClass TestClass::operator+(int x) const {
         TestClass c;

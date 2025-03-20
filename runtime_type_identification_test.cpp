@@ -3,26 +3,20 @@
 
 namespace gitee::com::ivfzhou::cpp::rtti {
     class Grand {
-    public:
-        virtual void whoami() {
-            std::cout << "I am grand" << std::endl;
-        }
+      public:
+        virtual void whoami() { std::cout << "I am grand" << std::endl; }
         virtual ~Grand() = default;
     };
 
     class Superb : public Grand {
-    public:
-        void whoami() override {
-            std::cout << "I am superb" << std::endl;
-        }
+      public:
+        void whoami() override { std::cout << "I am superb" << std::endl; }
         ~Superb() override = default;
     };
 
     class Magnificent : public Superb {
-    public:
-        void whoami() override {
-            std::cout << "I am magnificent" << std::endl;
-        }
+      public:
+        void whoami() override { std::cout << "I am magnificent" << std::endl; }
     };
 }
 
@@ -42,7 +36,8 @@ void TestRuntimeTypeIdentification() {
         try {
             Superb s;
             Grand& grand = s;
-            auto& magnificent = dynamic_cast<Magnificent&>(grand); // 如果 grand 不能转成 Magnificent 引用则触发 bad_cast 异常。
+            auto& magnificent =
+                dynamic_cast<Magnificent&>(grand); // 如果 grand 不能转成 Magnificent 引用则触发 bad_cast 异常。
         } catch (std::bad_cast& e) {
             std::cout << "dynamic_cast exception " << e.what() << std::endl;
         }

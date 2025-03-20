@@ -23,9 +23,7 @@ void TestCastVariable() {
         int y = static_cast<int>(x);
         std::cout << "y is " << y << std::endl; // 1
 
-        enum {
-            One
-        };
+        enum { One };
         int z = static_cast<int>(One);
         std::cout << "z is " << z << std::endl;
 
@@ -44,11 +42,11 @@ void TestCastVariable() {
     // dynamic_cast
     {
         class Base {
-        public:
+          public:
             virtual ~Base() {}
         };
         class Derived : public Base {
-        public :
+          public:
             Derived() {}
         };
         Base* base = new Derived();

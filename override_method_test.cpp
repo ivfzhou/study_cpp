@@ -2,7 +2,7 @@
 
 namespace gitee::com::ivfzhou::cpp::override_method_test {
     class TestClass {
-    public:
+      public:
         void m();
     };
 
@@ -12,13 +12,9 @@ namespace gitee::com::ivfzhou::cpp::override_method_test {
 
     class TestClass2 : public TestClass1 {};
 
-    void TestClass::m() {
-        std::cout << "TestClass" << std::endl;
-    }
+    void TestClass::m() { std::cout << "TestClass" << std::endl; }
 
-    void TestClass1::m() {
-        std::cout << "TestClass1" << std::endl;
-    }
+    void TestClass1::m() { std::cout << "TestClass1" << std::endl; }
 }
 
 void TestOverrideMethod() {

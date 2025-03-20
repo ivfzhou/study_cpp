@@ -20,10 +20,11 @@ else()
     ExternalProject_Add(
         xz
         PREFIX ${XZ_DEPENDENCIES_PREFIX}
-        GIT_REPOSITORY https://github.com/tukaani-project/xz.git
-        GIT_TAG v5.6.4
-        CONFIGURE_COMMAND cd ${XZ_DEPENDENCIES_PREFIX}/src && mkdir -p xz-build
-        BUILD_COMMAND cd ${XZ_DEPENDENCIES_PREFIX}/src/xz-build && ${CMAKE_COMMAND} -DCMAKE_INSTALL_PREFIX=${XZ_DEPENDENCIES_PREFIX} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} ../xz
+        URL https://github.com/tukaani-project/xz/archive/refs/tags/v5.6.4.zip
+        CONFIGURE_COMMAND cd ${XZ_DEPENDENCIES_PREFIX}/src && rm -rf xz-build && mkdir -p xz-build
+        BUILD_COMMAND cd ${XZ_DEPENDENCIES_PREFIX}/src/xz-build &&
+        ${CMAKE_COMMAND} -DCMAKE_INSTALL_PREFIX=${XZ_DEPENDENCIES_PREFIX} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE}
+        -DBUILD_SHARED_LIBS=OFF -DBUILD_TESTING=OFF ../xz
         INSTALL_COMMAND cd ${XZ_DEPENDENCIES_PREFIX}/src/xz-build && ${CMAKE_COMMAND} --build . --target install
     )
     set(XZ_LIB ${XZ_DEPENDENCIES_PREFIX}/lib/liblzma.a)

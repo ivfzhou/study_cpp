@@ -1,7 +1,7 @@
 #ifndef GITEE_COM_IVFZHOU_CPP_FRIEND_CLASS
 #define GITEE_COM_IVFZHOU_CPP_FRIEND_CLASS
 
-#include "TemplateClass.hpp"
+#include "template_usage/TemplateClass.hpp"
 
 namespace gitee::com::ivfzhou::cpp {
     template <typename T, typename E>

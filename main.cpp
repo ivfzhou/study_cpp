@@ -6,10 +6,10 @@
 #include <iostream>
 #include <vector>
 
-#include "FatherClass.hpp"
-#include "FriendClass.hpp"
-#include "SonClass.hpp"
-#include "TemplateClass.hpp"
+#include "inheritance_usage/FatherClass.hpp"
+#include "inheritance_usage/FriendClass.hpp"
+#include "inheritance_usage/SonClass.hpp"
+#include "template_usage/TemplateClass.hpp"
 
 extern void TestAssignmentCopyOperation();
 
@@ -114,8 +114,8 @@ static void testLocateNew() {
 }
 
 static void testMacro() {
-    #define FN(name) \
-    std::string name = "abc"; \
+#define FN(name)                                                                                                       \
+    std::string name = "abc";                                                                                          \
     std::cout << name << std::endl;
 
     FN(variableName);
@@ -374,7 +374,7 @@ void testConstReference() {
 }
 
 // 函数模板，表达式参数可以提供默认值，类型参数不能。
-template <typename T>
+template<typename T>
 static void testTemplateFunction(T t) {
     std::cout << t << std::endl;
 }
@@ -499,7 +499,7 @@ static void testDecltype() {
     std::cout << z << std::endl;
 }
 
-template <typename F, typename... Args>
+template<typename F, typename... Args>
 static void variableTemplateFunction(F&& f, Args&&... args) {
     f(std::forward<Args...>(args...));
 }
@@ -521,7 +521,7 @@ static void testRightValue() {
     std::cout << z << std::endl; // 3
 }
 
-template <typename T>
+template<typename T>
 static typename std::remove_reference<T>::type&& move(T&& x) {
     x++;
     return static_cast<typename std::remove_reference<T>::type&&>(x);
@@ -590,11 +590,81 @@ void Version() {
     std::cout << "BuiltTime: " << BUILD_DATETIME << std::endl;
 }
 
+static void testAll() {
+    TestAssignmentCopyOperation();
+    TestCastVariable();
+    TestUniversalCharacterName();
+    TestWideCharacter();
+    TestRawString();
+    TestCertainLengthCharacters();
+    TestException();
+    TestFriendMemberOperatorOverload();
+    TestSonClass();
+    TestString();
+    TestNamespace();
+    TestPrivateExtend();
+    TestRuntimeTypeIdentification();
+    TestTemplateClass();
+    TestTemplate();
+    TestTemplateStaticMember();
+    TestValarray();
+    TestVariableArgument();
+    TestMemberInitializerList();
+    TestMultipleInheritance();
+    TestSmartPointer();
+    TestUpcast();
+    TestOverrideMethod();
+    TestTypename();
+    TestMovementClass();
+    TestHttp();
+    TestYaml();
+
+    testConstantPointerAssignment();
+    testLambdaUsage();
+    testIterator();
+    testLocateNew();
+    testMacro();
+    testNew();
+    testInitialization();
+    testCoutControl();
+    testUsing();
+    testConstantArrayLength();
+    testTypeSize();
+    testForceTypeCast();
+    testForceTypeCast();
+    testDiffGetGetline();
+    testCinEscape();
+    testFileInputOutput();
+    testDynamicArray();
+    testOperatorPrecedence();
+    testUseVector();
+    testUseArray();
+    testWaitTime();
+    testEspecialForLoop();
+    testReferenceVariable();
+    testConstReference();
+    testTemplateFunction(1);
+    testDefaultVariableFunction(1);
+    testClassFieldPointer();
+    testUseGlobalVar();
+    testClass();
+    testDecltype();
+    testStdForward();
+    testRightValue();
+    testCommonReference();
+    testRightValueToLeft();
+    testReference();
+
+    extern void TestYamlAll();
+    TestYamlAll();
+}
+
 int main(const int argv, const char* argc[]) {
     std::setlocale(LC_ALL, "en_US.UTF-8");
 
-    TestYaml();
+    testAll();
 
     std::cout << "OK 完成" << std::endl;
+    Version();
     return 0;
 }

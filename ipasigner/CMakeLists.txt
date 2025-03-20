@@ -10,24 +10,24 @@ add_executable(ipasigner config.cpp main.cpp)
 
 include(FetchContent)
 FetchContent_Declare(
-        argparse
-        GIT_REPOSITORY https://github.com/p-ranav/argparse.git
-        GIT_TAG v3.0
+    argparse
+    GIT_REPOSITORY https://github.com/p-ranav/argparse.git
+    GIT_TAG v3.0
 )
 FetchContent_MakeAvailable(argparse)
 
 FetchContent_Declare(
-        yaml-cpp
-        GIT_REPOSITORY https://github.com/jbeder/yaml-cpp.git
-        GIT_TAG 0.8.0
+    yaml-cpp
+    GIT_REPOSITORY https://github.com/jbeder/yaml-cpp.git
+    GIT_TAG 0.8.0
 )
 #FetchContent_GetProperties(yaml-cpp)
 FetchContent_MakeAvailable(yaml-cpp)
 
-if (NOT yaml-cpp_POPULATED)
+if(NOT yaml-cpp_POPULATED)
     message(STATUS "Fetching yaml-cpp...")
     FetchContent_Populate(yaml-cpp)
     add_subdirectory(${yaml-cpp_SOURCE_DIR} ${yaml-cpp_BINARY_DIR})
-endif ()
+endif()
 
 target_link_libraries(ipasigner yaml-cpp::yaml-cpp argparse)

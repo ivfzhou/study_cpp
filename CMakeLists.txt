@@ -46,7 +46,13 @@ message(STATUS "macro BUILD_DATATIME is ${DATETIME}")
 message(STATUS "macro GIT_COMMIT_ID is ${GIT_COMMIT_ID}")
 
 # 搜集源码和头文件
-file(GLOB SOURCES ${CMAKE_SOURCE_DIR}/*.cpp)
+file(GLOB SOURCES
+    ${CMAKE_SOURCE_DIR}/*.cpp
+    ${CMAKE_SOURCE_DIR}/inheritance_usage/*.cpp
+    ${CMAKE_SOURCE_DIR}/template_usage/*.cpp
+    ${CMAKE_SOURCE_DIR}/yaml_usage/*.cpp
+    ${CMAKE_SOURCE_DIR}/http_usage/*.cpp
+)
 include_directories(${CMAKE_SOURCE_DIR})
 
 # 设置构建类型
@@ -69,7 +75,6 @@ if(CMAKE_SYSTEM_NAME STREQUAL "Windows")
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Linux")
     include(cmakes/linux.cmake)
 elseif(CMAKE_SYSTEM_NAME STREQUAL "Darwin")
-    include(cmakes/darwin.cmake)
 else()
     message(FATAL_ERROR "unknown operating system: ${CMAKE_SYSTEM_NAME}")
 endif()

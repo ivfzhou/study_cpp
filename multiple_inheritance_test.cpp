@@ -2,68 +2,44 @@
 
 namespace gitee::com::ivfzhou::cpp::multiple_inheritance {
     class TestClass {
-    public:
-        TestClass() {
-            std::cout << "TestClass" << std::endl;
-        }
+      public:
+        TestClass() { std::cout << "TestClass" << std::endl; }
 
-        TestClass(const TestClass& tc) {
-            std::cout << "TestClass copy" << std::endl;
-        }
+        TestClass(const TestClass& tc) { std::cout << "TestClass copy" << std::endl; }
 
-        void overwrite() {
-            std::cout << "TestClass overwrite" << std::endl;
-        }
+        void overwrite() { std::cout << "TestClass overwrite" << std::endl; }
     };
 
     class TestClass0 : public virtual TestClass {
-    public:
-        TestClass0() {
-            std::cout << "TestClass0" << std::endl;
-        }
+      public:
+        TestClass0() { std::cout << "TestClass0" << std::endl; }
 
-        TestClass0(TestClass& tc) : TestClass(tc) {
-            std::cout << "TestClass0 constructor" << std::endl;
-        }
+        TestClass0(TestClass& tc) : TestClass(tc) { std::cout << "TestClass0 constructor" << std::endl; }
 
-    private:
-        void overwrite() {
-            std::cout << "TestClass overwrite" << std::endl;
-        }
+      private:
+        void overwrite() { std::cout << "TestClass overwrite" << std::endl; }
     };
 
     class TestClass1 : public virtual TestClass {
-    public:
-        TestClass1() {
-            std::cout << "TestClass1" << std::endl;
-        }
+      public:
+        TestClass1() { std::cout << "TestClass1" << std::endl; }
 
-        TestClass1(TestClass& tc) : TestClass(tc) {
-            std::cout << "TestClass1 constructor" << std::endl;
-        }
+        TestClass1(TestClass& tc) : TestClass(tc) { std::cout << "TestClass1 constructor" << std::endl; }
 
-        void overwrite() {
-            std::cout << "TestClass1 overwrite" << std::endl;
-        }
+        void overwrite() { std::cout << "TestClass1 overwrite" << std::endl; }
     };
 
     class TestClass2 : public TestClass {
-    public:
-        TestClass2() {
-            std::cout << "TestClass2" << std::endl;
-        }
+      public:
+        TestClass2() { std::cout << "TestClass2" << std::endl; }
 
-        TestClass2(TestClass& tc) : TestClass(tc) {
-            std::cout << "TestClass2 copy" << std::endl;
-        }
+        TestClass2(TestClass& tc) : TestClass(tc) { std::cout << "TestClass2 copy" << std::endl; }
 
-        void overwrite() {
-            std::cout << "TestClass2 overwrite" << std::endl;
-        }
+        void overwrite() { std::cout << "TestClass2 overwrite" << std::endl; }
     };
 
     class TestClass3 : public TestClass0, public TestClass1, public TestClass2 {
-    public:
+      public:
         TestClass3() = default; // 虚基类从这里调用构造。
 
         TestClass3(TestClass& tc) : TestClass0(tc), TestClass1(tc) {}
@@ -82,26 +58,26 @@ namespace gitee::com::ivfzhou::cpp::multiple_inheritance0 {
     class Worker {
         int a;
 
-    public :
+      public:
         Worker(int a);
     };
 
     class Singer : virtual public Worker {
         int b;
 
-    public:
+      public:
         Singer(int b, int a);
     };
 
     class Waiter : virtual public Worker {
         int c;
 
-    public:
+      public:
         Waiter(int c, int a);
     };
 
     class SingingWaiter : public Singer, public Waiter {
-    public:
+      public:
         SingingWaiter(int c, int b, int a);
     };
 

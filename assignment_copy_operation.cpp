@@ -4,9 +4,7 @@
 #include "assignment_copy_operation.hpp"
 
 namespace gitee::com::ivfzhou::cpp::assignment_copy_operation {
-    TestClass::TestClass() {
-        std::cout << "TestClass" << std::endl;
-    }
+    TestClass::TestClass() { std::cout << "TestClass" << std::endl; }
 
     TestClass::TestClass(const TestClass& tc) {
         std::cout << "TestClass tc" << tc.name << " " << tc.x << std::endl;
@@ -31,7 +29,5 @@ namespace gitee::com::ivfzhou::cpp::assignment_copy_operation {
         return tc0;
     }
 
-    TestClass::~TestClass() {
-        std::cout << "~TestClass " << name << " " << x << std::endl;
-    }
+    TestClass::~TestClass() { std::cout << "~TestClass " << name << " " << x << std::endl; }
 }

@@ -18,6 +18,10 @@ foreach(CompilerFlag ${CompilerFlags})
     string(REPLACE "/MD" "/MT" ${CompilerFlag} "${${CompilerFlag}}")
     string(REPLACE "/MDd" "/MTd" ${CompilerFlag} "${${CompilerFlag}}")
 endforeach()
+set(CMAKE_MSVC_RUNTIME_LIBRARY MultiThreaded)
+if(CMAKE_BUILD_TYPE STREQUAL "Debug")
+    set(CMAKE_MSVC_RUNTIME_LIBRARY MultiThreadedDebug)
+endif()
 
 # 添加依赖
 include(cmakes/windows/openssl.cmake)

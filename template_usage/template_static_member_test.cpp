@@ -1,28 +1,24 @@
 #include <iostream>
 
 namespace gitee::com::ivfzhou::cpp::template_static_member {
-    template <typename T>
+    template<typename T>
     class TestClass {
         static int count;
 
-    public :
-        TestClass() {
-            std::cout << ++count << std::endl;
-        }
+      public:
+        TestClass() { std::cout << ++count << std::endl; }
     };
 
-    template <typename T>
+    template<typename T>
     int TestClass<T>::count = 0;
 
     // 具体化，每一个特定的具体化都有自己的静态成员。
-    template <>
+    template<>
     class TestClass<int> {
         static int count;
 
-    public :
-        TestClass() {
-            std::cout << ++count << std::endl;
-        }
+      public:
+        TestClass() { std::cout << ++count << std::endl; }
     };
 
     int TestClass<int>::count = 0;

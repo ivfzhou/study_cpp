@@ -13,11 +13,14 @@ else()
     ExternalProject_Add(
         cpp-httplib
         PREFIX ${CPP_HTTPLIB_DEPENDENCIES_PREFIX}
-        GIT_REPOSITORY https://github.com/yhirose/cpp-httplib.git
-        GIT_TAG v0.18.7
-        CONFIGURE_COMMAND cd ${CPP_HTTPLIB_DEPENDENCIES_PREFIX}/src && if not exist cpp-httplib-build (md cpp-httplib-build)
-        BUILD_COMMAND cd ${CPP_HTTPLIB_DEPENDENCIES_PREFIX}/src/cpp-httplib-build && ${CMAKE_COMMAND} -DCMAKE_INSTALL_PREFIX=${CPP_HTTPLIB_DEPENDENCIES_PREFIX} -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} ../cpp-httplib
-        INSTALL_COMMAND cd ${CPP_HTTPLIB_DEPENDENCIES_PREFIX}/src/cpp-httplib-build && ${CMAKE_COMMAND} --build . --target install --config ${CMAKE_BUILD_TYPE}
+        URL https://github.com/yhirose/cpp-httplib/archive/refs/tags/v0.20.0.zip
+        CONFIGURE_COMMAND cd ${CPP_HTTPLIB_DEPENDENCIES_PREFIX}/src &&
+        rd /s /q cpp-httplib-build && md cpp-httplib-build
+        BUILD_COMMAND cd ${CPP_HTTPLIB_DEPENDENCIES_PREFIX}/src/cpp-httplib-build &&
+        ${CMAKE_COMMAND} -DCMAKE_INSTALL_PREFIX=${CPP_HTTPLIB_DEPENDENCIES_PREFIX}
+        -DCMAKE_BUILD_TYPE=${CMAKE_BUILD_TYPE} -DBUILD_SHARED_LIBS=OFF ../cpp-httplib
+        INSTALL_COMMAND cd ${CPP_HTTPLIB_DEPENDENCIES_PREFIX}/src/cpp-httplib-build &&
+        ${CMAKE_COMMAND} --build . --target install --config ${CMAKE_BUILD_TYPE}
     )
     set(CPP_HTTPLIB_INCLUDE_DIR ${CPP_HTTPLIB_DEPENDENCIES_PREFIX}/include)
 endif()

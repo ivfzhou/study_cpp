@@ -1,7 +1,7 @@
-#include <string>
-#include <iostream>
 #include <codecvt>
+#include <iostream>
 #include <locale>
+#include <string>
 
 // 通用字符名：\uxxxx \Uxxxxxxxx 表示 Unicode、ISO10646 的一个码点。
 void TestUniversalCharacterName() {
@@ -15,8 +15,7 @@ void TestWideCharacter() {
     wchar_t wc0[] = L"你好";
     std::locale::global(std::locale("")); // 设置全局 locale。
     std::wcout.imbue(std::locale()); // 设置 wcout 的 locale。
-    std::wcout << L"wc is " << wc << std::endl
-        << L"wc0 is " << wc0 << std::endl;
+    std::wcout << L"wc is " << wc << std::endl << L"wc0 is " << wc0 << std::endl;
 }
 
 // raw string
@@ -51,6 +50,6 @@ void TestCertainLengthCharacters() {
     char16_t c16 = u'你';
     char32_t c32 = U'你';
     std::cout << "c8 int is " << static_cast<int>(c8) << std::endl
-        << "c16 int is " << static_cast<int>(c16) << std::endl
-        << "c32 int is " << static_cast<int>(c32) << std::endl;
+              << "c16 int is " << static_cast<int>(c16) << std::endl
+              << "c32 int is " << static_cast<int>(c32) << std::endl;
 }

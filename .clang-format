@@ -55,4 +55,9 @@ SpacesInConditionalStatement: false # 如果设置为 true，则在条件语句�
 SpacesInCStyleCastParentheses: false # 如果设置为 true，则在 C 风格的类型转换的括号内插入空格。
 SpacesInParentheses: false # 如果设置为 true，则在所有括号内插入空格。
 TabWidth: 4 # 设置制表符的宽度，通常以空格数表示。这个值决定了在使用制表符时每个制表符的宽度。
+BinPackParameters: false  # 禁止将函数参数打包到一行
+BinPackArguments: false  # 禁止将函数调用参数打包到一行
+BreakBeforeBinaryOperators: NonAssignment  # 在非赋值操作符前换行
+FixNamespaceComments: false  # 禁止在 namespace 结尾大括号后添加注释
+SpaceAfterTemplateKeyword: false  # 禁止在 template 关键字后添加空格
 ...

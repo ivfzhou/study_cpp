@@ -3,7 +3,7 @@
 
 namespace gitee::com::ivfzhou::cpp::valarray_usage {
     class TestClass {
-    public:
+      public:
         int x = 0;
 
         TestClass operator+=(const TestClass& tc) const {
@@ -12,9 +12,7 @@ namespace gitee::com::ivfzhou::cpp::valarray_usage {
             return tc0;
         }
 
-        friend std::ostream& operator<<(std::ostream& os, const TestClass& tc) {
-            return os << tc.x;
-        }
+        friend std::ostream& operator<<(std::ostream& os, const TestClass& tc) { return os << tc.x; }
     };
 }
 

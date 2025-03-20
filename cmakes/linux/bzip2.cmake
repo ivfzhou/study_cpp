@@ -20,11 +20,10 @@ else()
     ExternalProject_Add(
         bzip2
         PREFIX ${BZIP2_DEPENDENCIES_PREFIX}
-        GIT_REPOSITORY https://github.com/libarchive/bzip2.git
-        GIT_TAG bzip2-1.0.8
-        CONFIGURE_COMMAND cd ${BZIP2_DEPENDENCIES_PREFIX}/src/bzip2
+        URL https://github.com/libarchive/bzip2/archive/refs/tags/bzip2-1.0.8.zip
+        CONFIGURE_COMMAND cd ${BZIP2_DEPENDENCIES_PREFIX}/src
         BUILD_COMMAND cd ${BZIP2_DEPENDENCIES_PREFIX}/src/bzip2 && make -j
-        INSTALL_COMMAND cd ${BZIP2_DEPENDENCIES_PREFIX}/src/libbzip2 && make install PREFIX=${BZIP2_DEPENDENCIES_PREFIX}
+        INSTALL_COMMAND cd ${BZIP2_DEPENDENCIES_PREFIX}/src/bzip2 && make install PREFIX=${BZIP2_DEPENDENCIES_PREFIX}
     )
     set(BZIP2_LIB ${BZIP2_DEPENDENCIES_PREFIX}/lib/libbz2.a)
     set(BZIP2_INCLUDE_DIR ${BZIP2_DEPENDENCIES_PREFIX}/include)

@@ -1,20 +1,20 @@
 namespace gitee::com::ivfzhou::cpp::remove_reference {
-    template <typename T>
+    template<typename T>
     class RemoveReference {
-    public:
+      public:
         using type = T;
     };
 
     // 具体化。
-    template <typename T>
+    template<typename T>
     class RemoveReference<T&> {
-    public:
+      public:
         using type = T;
     };
 
-    template <typename T>
+    template<typename T>
     class RemoveReference<T&&> {
-    public:
+      public:
         using type = T;
     };
 }

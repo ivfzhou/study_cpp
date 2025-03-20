@@ -20,8 +20,7 @@ else()
     ExternalProject_Add(
         zstd
         PREFIX ${ZSTD_DEPENDENCIES_PREFIX}
-        GIT_REPOSITORY https://github.com/facebook/zstd.git
-        GIT_TAG v1.5.6
+        URL https://github.com/facebook/zstd/archive/refs/tags/v1.5.7.zip
         CONFIGURE_COMMAND cd ${ZSTD_DEPENDENCIES_PREFIX}/src/zstd
         BUILD_COMMAND cd ${ZSTD_DEPENDENCIES_PREFIX}/src/zstd && make -j
         INSTALL_COMMAND cd ${ZSTD_DEPENDENCIES_PREFIX}/src/zstd && make install PREFIX=${ZSTD_DEPENDENCIES_PREFIX}

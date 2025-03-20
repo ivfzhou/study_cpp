@@ -2,18 +2,16 @@
 
 namespace gitee::com::ivfzhou::cpp::private_extend {
     class TestClass {
-    public:
+      public:
         friend std::ostream& operator<<(std::ostream&, const TestClass&);
 
         void method() {}
     };
 
-    std::ostream& operator<<(std::ostream& os, const TestClass&) {
-        return os << "TestClass";
-    }
+    std::ostream& operator<<(std::ostream& os, const TestClass&) { return os << "TestClass"; }
 
     class TestClass0 : TestClass {
-    public:
+      public:
         friend std::ostream& operator<<(std::ostream&, const TestClass0&);
 
         using TestClass::method; // 使用父类成员做为本类成员。
