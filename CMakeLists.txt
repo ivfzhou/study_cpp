@@ -52,6 +52,7 @@ file(GLOB SOURCES
     ${CMAKE_SOURCE_DIR}/template_usage/*.cpp
     ${CMAKE_SOURCE_DIR}/yaml_usage/*.cpp
     ${CMAKE_SOURCE_DIR}/http_usage/*.cpp
+    ${CMAKE_SOURCE_DIR}/jwt_usage/*.cpp
 )
 include_directories(${CMAKE_SOURCE_DIR})
 

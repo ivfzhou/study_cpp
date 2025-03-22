@@ -1,6 +1,7 @@
 #include <array>
 #include <cstring>
 #include <ctime>
+#include <filesystem>
 #include <fstream>
 #include <iomanip>
 #include <iostream>
@@ -64,6 +65,8 @@ extern void TestMovementClass();
 extern void TestHttp();
 
 extern void TestYaml();
+
+extern void TestJwt();
 
 static void testConstantPointerAssignment() {
     const int x = 1;
@@ -584,6 +587,41 @@ static void testReference() {
     std::cout << x << std::endl;
 }
 
+// 方法返回值用右值引用接收的行为表现。
+class Data final {
+  public:
+    int x = 0;
+    ~Data() { std::cout << "~Data" << std::endl; }
+};
+static Data returnData() {
+    Data data;
+    data.x = 1;
+    return data;
+}
+static void testReturnRef() {
+    auto&& d = returnData();
+    std::cout << "已接受" << d.x << std::endl;
+}
+
+// 获取当前目录。
+static void testCurrentPath() {
+    using namespace std;
+    cout << filesystem::current_path().generic_string() << endl;
+}
+
+// 切换当前文件夹。
+static void testChangeWorkDirectory() {
+    using namespace std;
+    #if defined WINDOWS
+        cout << WINDOWS << endl;
+    #elif defined LINUX
+        cout << LINUX << endl;
+    #endif
+}
+
+// 获取机器 IP。
+static void testGetLocalIP() { using namespace std; }
+
 void Version() {
     std::cout << "Version: " << BUILD_VERSION << std::endl;
     std::cout << "CommitID: " << GIT_COMMIT_ID << std::endl;
@@ -618,6 +656,7 @@ static void testAll() {
     TestMovementClass();
     TestHttp();
     TestYaml();
+    TestJwt();
 
     testConstantPointerAssignment();
     testLambdaUsage();
@@ -654,17 +693,22 @@ static void testAll() {
     testCommonReference();
     testRightValueToLeft();
     testReference();
+    testReturnRef();
 
     extern void TestYamlAll();
     TestYamlAll();
+    extern void TestJwtAll();
+    TestJwtAll();
+    extern void TestHttpAll();
+    TestHttpAll();
 }
 
 int main(const int argv, const char* argc[]) {
     std::setlocale(LC_ALL, "en_US.UTF-8");
+    Version();
 
     testAll();
 
     std::cout << "OK 完成" << std::endl;
-    Version();
     return 0;
 }

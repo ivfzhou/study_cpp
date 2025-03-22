@@ -11,3 +11,5 @@ include(cmakes/linux/zstd.cmake)
 include(cmakes/linux/cpp-httplib.cmake)
 include(cmakes/linux/jwt-cpp.cmake)
 include(cmakes/linux/yaml-cpp.cmake)
+
+add_definitions(-DLINUX=${BIT_SIZE})

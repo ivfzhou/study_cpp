@@ -60,4 +60,5 @@ BinPackArguments: false  # 禁止将函数调用参数打包到一行
 BreakBeforeBinaryOperators: NonAssignment  # 在非赋值操作符前换行
 FixNamespaceComments: false  # 禁止在 namespace 结尾大括号后添加注释
 SpaceAfterTemplateKeyword: false  # 禁止在 template 关键字后添加空格
+UseTab: Never
 ...

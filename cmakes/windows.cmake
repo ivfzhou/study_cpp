@@ -30,3 +30,5 @@ include(cmakes/windows/cpp-httplib.cmake)
 include(cmakes/windows/zlib.cmake)
 include(cmakes/windows/libzip.cmake)
 include(cmakes/windows/yaml-cpp.cmake)
+
+add_definitions(-DWINDOWS=${BIT_SIZE})

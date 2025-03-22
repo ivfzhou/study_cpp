@@ -140,11 +140,58 @@ namespace gitee::com::ivfzhou::cpp::yaml {
         cout << emitter.good() << endl;
         cout << emitter.GetLastError() << endl;
     }
+
+    extern void test16();
+    extern void test17();
+    extern void test18();
+    extern void test19();
+
+    // 生成文档。
+    static void test20() {
+        YAML::Node node;
+        node["key"] = "value";
+        node["seq"].push_back("first element");
+        node["seq"].push_back("second element");
+
+        node["mirror"] = node["seq"][0];
+        node["seq"][0] = "1st element";
+        node["mirror"] = "element #1";
+
+        node["self"] = node;
+        node[node["mirror"]] = node["seq"];
+        cout << node << endl;
+    }
+
+    // 序列转映射行为。
+    static void test21() {
+        auto&& node = YAML::Load("[1, 2, 3]");
+        node[1] = 5;
+        node.push_back(-3);
+        node["key"] = "value";
+        cout << node << endl;
+
+        node = YAML::Load("[1, 2, 3]");
+        node[3] = 4;
+        node[10] = 10;
+        cout << node << endl;
+    }
+
+    // 使用列表作为映射的键。
+    static void test22() {
+        auto&& node = YAML::Load("{pi: 3.14159, [0, 1]: integers}");
+        std::vector<int> v;
+        v.push_back(0);
+        v.push_back(1);
+        string&& str = node[v].as<std::string>();
+        cout << str << endl;
+    }
+
+    extern void test23();
 }
 
 void TestYaml() {
     using namespace gitee::com::ivfzhou::cpp::yaml;
-    test15();
+    test23();
 }
 
 void TestYamlAll() {
@@ -164,4 +211,12 @@ void TestYamlAll() {
     test13();
     test14();
     test15();
+    test16();
+    test17();
+    test18();
+    test19();
+    test20();
+    test21();
+    test22();
+    test23();
 }
